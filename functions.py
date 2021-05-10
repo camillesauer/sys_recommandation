@@ -1,7 +1,8 @@
 
 from sklearn.feature_extraction.text import TfidfVectorizer,CountVectorizer
 from sklearn.metrics.pairwise import linear_kernel
-
+from sentence_transformers import SentenceTransformer, models
+import streamlit as st
 
 def get_recommandation(user_input, df):
     vec = TfidfVectorizer(analyzer='word', ngram_range=(1, 2), min_df=0, stop_words='english')
