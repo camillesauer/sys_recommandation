@@ -1,9 +1,8 @@
 import sys
 sys.path.insert(0, "C:\\Users\\Apprenant\\PycharmProjects\\sys_recommandation")
-
-import streamlit as st
+from sentence_transformers import SentenceTransformer, models
 import pandas as pd
-
+import streamlit as st
 from functions import get_recommandation, get_idea
 
 # Importing the dataset
@@ -16,10 +15,10 @@ df['content'].fillna('Null', inplace=True)
 # ##########################################################################################"
 #header
 st.header("Démonstration NLP:")
-st.image('epingle.png', width=60)
+st.image('images/epingle.png', width=60)
 # ###################################################################################
 # sidebar
-tool = st.radio('Choose Tool:',["TfidfVectorizer","CountVectorizer", "BERT"])
+tool = st.radio('Choose Tool:',["TfidfVectorizer","CountVectorizer"])
 form = st.form(key='my_form')
 new_input = form.text_input(label='Enter some text')
 submit_button = form.form_submit_button(label='Chercher')
@@ -30,11 +29,10 @@ if new_input :
     if tool == "TfidfVectorizer":
         results = get_recommandation(new_input, df)
         title = "Vous aimez le " + new_input + "?"
-    elif tool == "CountVectorizer":
+    else:
+        tool == "CountVectorizer"
         results = get_idea(new_input, df)
         title = "Mais vous avez envie de changement?"
-    else:
-        title = ("et Bert?")
 
 
     st.title(title)
